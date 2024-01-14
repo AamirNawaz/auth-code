@@ -1,7 +1,8 @@
 package com.authapp.services;
 
-import com.authapp.Customer;
-import com.authapp.CustomerRepository;
+import com.authapp.dto.CustomerResponseDto;
+import com.authapp.model.Customer;
+import com.authapp.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.List;
 
 @Service
 public class CustomerServiceImpl implements UserDetailsService {
@@ -25,5 +27,9 @@ public class CustomerServiceImpl implements UserDetailsService {
         Customer customer = customerRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException("Email not found!"));
         return new User(customer.getEmail(), customer.getPassword(), Collections.emptyList());
 
+    }
+
+    public List<Customer> getAll() {
+        return customerRepository.findAll();
     }
 }

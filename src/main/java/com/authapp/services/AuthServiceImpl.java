@@ -1,7 +1,7 @@
 package com.authapp.services;
 
-import com.authapp.Customer;
-import com.authapp.CustomerRepository;
+import com.authapp.model.Customer;
+import com.authapp.repository.CustomerRepository;
 import com.authapp.dto.CustomerRequestDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;

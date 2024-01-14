@@ -1,9 +1,11 @@
-package com.authapp;
+package com.authapp.controller;
 
 import com.authapp.dto.CustomerLoginRequest;
 import com.authapp.dto.CustomerLoginResponse;
 import com.authapp.dto.CustomerRequestDto;
+import com.authapp.dto.CustomerResponseDto;
 import com.authapp.jwtUtil.JwtUtil;
+import com.authapp.model.Customer;
 import com.authapp.services.CustomerServiceImpl;
 import com.authapp.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -60,6 +61,11 @@ public class CustomerController {
         }
         String token = jwtUtil.generateToken(userDetails.getUsername());
        return ResponseEntity.ok().body(new CustomerLoginResponse(token));
+    }
+
+    @GetMapping("/list")
+    public List<Customer> getAllCustomer(){
+        return customerService.getAll();
     }
 
 
