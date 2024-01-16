@@ -34,7 +34,7 @@ public class AuthServiceImpl implements AuthService {
 
 
         Set<Role> roles = new HashSet<>();
-        for (Role roleName : customerRequestDto.getRoles()) {
+        for (String roleName : customerRequestDto.getRoles()) {
             Role role = roleRepository.findByName(roleName)
                     .orElseThrow(() -> new EntityNotFoundException("Role with name " + roleName + " not found"));
             roles.add(role);

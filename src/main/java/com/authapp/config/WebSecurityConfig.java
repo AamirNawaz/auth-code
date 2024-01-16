@@ -4,7 +4,6 @@ import com.authapp.middleware.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,7 +32,8 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/**").authenticated()
-                        .requestMatchers("/customer/signup", "/customer/login", "/customer/list","/roles/**").permitAll()
+                        .requestMatchers("/h2-console").permitAll()
+                        .requestMatchers("/customer/signup", "/customer/login", "/customer/list", "/roles/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(
