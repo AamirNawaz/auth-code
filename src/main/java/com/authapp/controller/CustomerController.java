@@ -5,9 +5,8 @@ import com.authapp.dto.CustomerLoginResponse;
 import com.authapp.dto.CustomerRequestDto;
 import com.authapp.jwtUtil.JwtUtil;
 import com.authapp.model.Customer;
-import com.authapp.services.AuthService;
+import com.authapp.services.AuthServiceImpl;
 import com.authapp.services.CustomerServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,14 +22,13 @@ import java.util.List;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    @Autowired
-    private final AuthService authService;
+    private final AuthServiceImpl authServiceImpl;
     private final AuthenticationManager authenticationManager;
     private final CustomerServiceImpl customerService;
     private final JwtUtil jwtUtil;
 
-    public CustomerController(AuthService authService, AuthenticationManager authenticationManager, CustomerServiceImpl customerService, JwtUtil jwtUtil) {
-        this.authService = authService;
+    public CustomerController(AuthServiceImpl authServiceImpl, AuthenticationManager authenticationManager, CustomerServiceImpl customerService, JwtUtil jwtUtil) {
+        this.authServiceImpl = authServiceImpl;
         this.authenticationManager = authenticationManager;
         this.customerService = customerService;
         this.jwtUtil = jwtUtil;
@@ -38,7 +36,7 @@ public class CustomerController {
 
     @PostMapping("/signup")
     public Customer signupCustomer(@RequestBody CustomerRequestDto customerRequestDto) {
-        return authService.creatCustomer(customerRequestDto);
+        return authServiceImpl.creatCustomer(customerRequestDto);
 
     }
 
