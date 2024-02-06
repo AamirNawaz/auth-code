@@ -18,20 +18,19 @@ public class AuthServiceImpl {
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public AuthServiceImpl(CustomerRepository customerRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public AuthServiceImpl(CustomerRepository customerRepository, RoleRepository roleRepository,
+            PasswordEncoder passwordEncoder) {
         this.customerRepository = customerRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    
     public Customer creatCustomer(CustomerRequestDto customerRequestDto) {
         Customer customer = new Customer();
         customer.setName(customerRequestDto.getName());
         customer.setEmail(customerRequestDto.getEmail());
         String hashPassword = passwordEncoder.encode(customerRequestDto.getPassword());
         customer.setPassword(hashPassword);
-
 
         Set<Role> roles = new HashSet<>();
         for (String roleName : customerRequestDto.getRoles()) {
